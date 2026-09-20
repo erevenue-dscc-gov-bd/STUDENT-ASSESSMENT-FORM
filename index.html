@@ -257,13 +257,17 @@
     .print-only { display: none; }
 
     @media print {
+      @page { margin: 12mm; }
       body { background: white; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .no-print { display: none !important; }
       .print-only { display: block; }
       .card { box-shadow: none; border: 1px solid #ccc; }
       .input-cell input, .input-cell select, .input-cell textarea {
         border-bottom: 1px dotted #999;
       }
+      .q-card, .section-block { break-inside: avoid; page-break-inside: avoid; }
+      .opt { background: white !important; }
     }
 
     .add-row-btn {
@@ -334,6 +338,100 @@
       padding: 1.5rem 1rem 3rem;
     }
 
+    .logo-svg { flex-shrink: 0; }
+
+    /* Question cards */
+    .q-card {
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .q-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1.45;
+      margin-bottom: 10px;
+    }
+
+    .q-sub {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #92400e;
+      margin-bottom: 3px;
+    }
+
+    .mini-input {
+      width: 100%;
+      border: 1.5px solid #fcd34d;
+      border-radius: 6px;
+      padding: 7px 9px;
+      font-size: 0.78rem;
+      font-family: inherit;
+      background: white;
+      outline: none;
+      color: #0f172a;
+    }
+
+    .mini-input:focus {
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+    }
+
+    .opt-grid { display: grid; gap: 8px; }
+    .opt-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .opt-grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .opt {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: #334155;
+      background: #f8fafc;
+      transition: all 0.15s;
+      line-height: 1.25;
+    }
+
+    .opt:hover {
+      border-color: #0d9488;
+      background: #f0fdfa;
+    }
+
+    .opt input[type="radio"] {
+      width: 15px;
+      height: 15px;
+      accent-color: #0d9488;
+      cursor: pointer;
+      flex-shrink: 0;
+      margin: 0;
+    }
+
+    .opt:has(input:checked) {
+      border-color: #0d9488;
+      background: #ccfbf1;
+      color: #0f766e;
+      font-weight: 600;
+      box-shadow: 0 0 0 1px #0d9488;
+    }
+
+    @media (max-width: 860px) {
+      .opt-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 520px) {
+      .opt-grid-3, .opt-grid-4 { grid-template-columns: 1fr; }
+    }
+
     @media (max-width: 640px) {
       .header-bar { flex-direction: column; gap: 0.75rem; text-align: center; }
       .form-title { font-size: 1.25rem !important; }
@@ -358,12 +456,23 @@
       <!-- Header -->
       <div class="header-bar flex items-center justify-between flex-wrap gap-3">
         <div class="flex items-center gap-3">
-          <div class="logo-mark">E</div>
+          <svg class="logo-svg" width="58" height="58" viewBox="0 0 100 100" aria-label="Edroll Education logo">
+            <rect x="4" y="4" width="92" height="92" rx="14" fill="#F2C14E"/>
+            <rect x="26" y="22" width="14" height="56" rx="4" fill="#1a1a1a"/>
+            <rect x="44" y="22" width="32" height="13" rx="4" fill="#1a1a1a"/>
+            <rect x="44" y="43.5" width="26" height="13" rx="4" fill="#1a1a1a"/>
+            <rect x="44" y="65" width="32" height="13" rx="4" fill="#1a1a1a"/>
+          </svg>
           <div>
-            <div class="text-xl font-bold leading-tight" style="color: #1a365d;">
-              Edroll <span style="color: #0d9488;">Education</span>
+            <div class="text-[1.35rem] font-extrabold leading-[1.05] tracking-tight" style="color: #1a1a1a;">
+              Edroll
             </div>
-            <div class="text-[10px] text-slate-400 font-medium tracking-wide uppercase">Your Path Abroad</div>
+            <div class="text-[1.35rem] font-extrabold leading-[1.05] tracking-tight" style="color: #1a1a1a;">
+              Education
+            </div>
+            <div class="text-[10.5px] font-semibold tracking-wide mt-0.5" style="color:#0d9488;">
+              Simplifying Study Abroad
+            </div>
           </div>
         </div>
         <h1 class="form-title text-2xl md:text-[1.7rem] font-bold text-slate-800">
@@ -411,7 +520,65 @@
               <td class="label-cell">Intended Course</td>
               <td class="input-cell"><input type="text" name="intendedCourse" placeholder="e.g. MSc Computer Science" data-track /></td>
               <td class="label-cell">Intended Country</td>
-              <td class="input-cell"><input type="text" name="intendedCountry" placeholder="e.g. United Kingdom" data-track /></td>
+              <td class="input-cell">
+                <select name="intendedCountry" data-track>
+                  <option value="">Select country...</option>
+                  <optgroup label="Popular Destinations">
+                    <option>United Kingdom</option>
+                    <option>United States of America</option>
+                    <option>Canada</option>
+                    <option>Australia</option>
+                    <option>Germany</option>
+                    <option>Ireland</option>
+                    <option>New Zealand</option>
+                  </optgroup>
+                  <optgroup label="Europe">
+                    <option>Austria</option>
+                    <option>Belgium</option>
+                    <option>Croatia</option>
+                    <option>Cyprus</option>
+                    <option>Czech Republic</option>
+                    <option>Denmark</option>
+                    <option>Estonia</option>
+                    <option>Finland</option>
+                    <option>France</option>
+                    <option>Greece</option>
+                    <option>Hungary</option>
+                    <option>Italy</option>
+                    <option>Latvia</option>
+                    <option>Lithuania</option>
+                    <option>Luxembourg</option>
+                    <option>Malta</option>
+                    <option>Netherlands</option>
+                    <option>Norway</option>
+                    <option>Poland</option>
+                    <option>Portugal</option>
+                    <option>Romania</option>
+                    <option>Slovakia</option>
+                    <option>Slovenia</option>
+                    <option>Spain</option>
+                    <option>Sweden</option>
+                    <option>Switzerland</option>
+                  </optgroup>
+                  <optgroup label="Asia &amp; Middle East">
+                    <option>China</option>
+                    <option>Georgia</option>
+                    <option>Japan</option>
+                    <option>Malaysia</option>
+                    <option>Qatar</option>
+                    <option>Singapore</option>
+                    <option>South Korea</option>
+                    <option>Turkey</option>
+                    <option>United Arab Emirates</option>
+                  </optgroup>
+                  <optgroup label="Other">
+                    <option>Mauritius</option>
+                    <option>South Africa</option>
+                    <option>Undecided / Need Guidance</option>
+                    <option>Other</option>
+                  </optgroup>
+                </select>
+              </td>
             </tr>
           </table>
           <p class="note-text">*You will be required to provide complete statement of purpose for the course you apply for. Sample will be shared.</p>
@@ -426,10 +593,11 @@
           <table class="form-table" id="educationTable">
             <thead>
               <tr>
-                <th style="width:28%">Name of Qualification</th>
-                <th style="width:32%">Institute / University</th>
-                <th style="width:20%">Duration<br><span style="font-weight:400;font-size:0.65rem">MM-YY – MM-YY</span></th>
-                <th style="width:16%">% / Grade / GPA / Division</th>
+                <th style="width:24%">Name of Qualification</th>
+                <th style="width:26%">Institute / University</th>
+                <th style="width:14%">From<br><span style="font-weight:400;font-size:0.65rem">MM-YY</span></th>
+                <th style="width:14%">To<br><span style="font-weight:400;font-size:0.65rem">MM-YY</span></th>
+                <th style="width:18%">% / Grade / GPA / Division</th>
                 <th class="no-print" style="width:4%"></th>
               </tr>
             </thead>
@@ -437,28 +605,32 @@
               <tr>
                 <td class="input-cell"><input type="text" name="eduQual[]" placeholder="e.g. Bachelor of Science" data-track /></td>
                 <td class="input-cell"><input type="text" name="eduInst[]" placeholder="University name" data-track /></td>
-                <td class="input-cell"><input type="text" name="eduDur[]" placeholder="09-18 – 06-22" data-track /></td>
+                <td class="input-cell"><input type="month" name="eduFrom[]" data-track /></td>
+                <td class="input-cell"><input type="month" name="eduTo[]" data-track /></td>
                 <td class="input-cell"><input type="text" name="eduGrade[]" placeholder="e.g. 3.5 GPA" data-track /></td>
                 <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
               </tr>
               <tr>
                 <td class="input-cell"><input type="text" name="eduQual[]" data-track /></td>
                 <td class="input-cell"><input type="text" name="eduInst[]" data-track /></td>
-                <td class="input-cell"><input type="text" name="eduDur[]" data-track /></td>
+                <td class="input-cell"><input type="month" name="eduFrom[]" data-track /></td>
+                <td class="input-cell"><input type="month" name="eduTo[]" data-track /></td>
                 <td class="input-cell"><input type="text" name="eduGrade[]" data-track /></td>
                 <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
               </tr>
               <tr>
                 <td class="input-cell"><input type="text" name="eduQual[]" data-track /></td>
                 <td class="input-cell"><input type="text" name="eduInst[]" data-track /></td>
-                <td class="input-cell"><input type="text" name="eduDur[]" data-track /></td>
+                <td class="input-cell"><input type="month" name="eduFrom[]" data-track /></td>
+                <td class="input-cell"><input type="month" name="eduTo[]" data-track /></td>
                 <td class="input-cell"><input type="text" name="eduGrade[]" data-track /></td>
                 <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
               </tr>
               <tr>
                 <td class="input-cell"><input type="text" name="eduQual[]" data-track /></td>
                 <td class="input-cell"><input type="text" name="eduInst[]" data-track /></td>
-                <td class="input-cell"><input type="text" name="eduDur[]" data-track /></td>
+                <td class="input-cell"><input type="month" name="eduFrom[]" data-track /></td>
+                <td class="input-cell"><input type="month" name="eduTo[]" data-track /></td>
                 <td class="input-cell"><input type="text" name="eduGrade[]" data-track /></td>
                 <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
               </tr>
@@ -534,14 +706,20 @@
             <tbody>
               <tr>
                 <td class="input-cell">
-                  <select name="testName" data-track>
+                  <select name="testName" data-track onchange="handleTestNameChange(this)">
                     <option value="">Select test...</option>
                     <option>IELTS Academic</option>
-                    <option>IELTS General</option>
+                    <option>IELTS General Training</option>
+                    <option>IELTS UKVI</option>
                     <option>TOEFL iBT</option>
                     <option>PTE Academic</option>
+                    <option>PTE UKVI</option>
                     <option>Duolingo English Test</option>
-                    <option>Cambridge English</option>
+                    <option>Cambridge English (C1/C2)</option>
+                    <option>OIETC / LanguageCert</option>
+                    <option>MOI (Medium of Instruction)</option>
+                    <option>English Language Proficiency Test preparation</option>
+                    <option>Not taken yet</option>
                     <option>Other</option>
                   </select>
                 </td>
@@ -557,6 +735,40 @@
           <div class="inline-note-field mt-1">
             <span>*If you are preparing for any English Test, please mention the expected date of appearing in Exam</span>
             <input type="date" name="expectedTestDate" data-track />
+          </div>
+
+              <!-- Spouse Question -->
+        <div class="section-block">
+          <div class="q-card">
+            <div class="q-title">
+              Do you plan to take your spouse with you during your study period abroad?
+            </div>
+            <div class="opt-grid opt-grid-3">
+              <label class="opt"><input type="radio" name="spousePlan" value="Yes" data-track /><span>Yes</span></label>
+              <label class="opt"><input type="radio" name="spousePlan" value="No" data-track /><span>No</span></label>
+              <label class="opt"><input type="radio" name="spousePlan" value="Not decided yet" data-track /><span>Not decided yet</span></label>
+            </div>
+            <p class="note-text mt-2 mb-0">*Dependant visa rules vary by country and course level. Our counsellors will advise on eligibility.</p>
+          </div>
+        </div>
+
+        <!-- Budget Question -->
+        <div class="section-block">
+          <div class="q-card">
+            <div class="q-title">
+              What is your total estimated budget for studying abroad, including tuition fees, visa, living expenses, and initial costs?
+            </div>
+            <div class="opt-grid opt-grid-4">
+              <label class="opt"><input type="radio" name="budget" value="Below BDT 10 Lakhs" data-track /><span>Below BDT 10 Lakhs</span></label>
+              <label class="opt"><input type="radio" name="budget" value="BDT 10-15 Lakhs" data-track /><span>BDT 10–15 Lakhs</span></label>
+              <label class="opt"><input type="radio" name="budget" value="BDT 15-20 Lakhs" data-track /><span>BDT 15–20 Lakhs</span></label>
+              <label class="opt"><input type="radio" name="budget" value="BDT 20-30 Lakhs" data-track /><span>BDT 20–30 Lakhs</span></label>
+              <label class="opt"><input type="radio" name="budget" value="BDT 30-40 Lakhs" data-track /><span>BDT 30–40 Lakhs</span></label>
+              <label class="opt"><input type="radio" name="budget" value="BDT 40-50 Lakhs" data-track /><span>BDT 40–50 Lakhs</span></label>
+              <label class="opt"><input type="radio" name="budget" value="Above BDT 50 Lakhs" data-track /><span>Above BDT 50 Lakhs</span></label>
+              <label class="opt"><input type="radio" name="budget" value="Not Decided Yet" data-track /><span>Not Decided Yet</span></label>
+            </div>
+            <p class="note-text mt-2 mb-0">*Budget evidence (bank statement / sponsor funds) will be required at the visa stage.</p>
           </div>
         </div>
 
@@ -794,7 +1006,8 @@
       tr.innerHTML = `
         <td class="input-cell"><input type="text" name="eduQual[]" placeholder="e.g. Bachelor of Science" data-track /></td>
         <td class="input-cell"><input type="text" name="eduInst[]" placeholder="University name" data-track /></td>
-        <td class="input-cell"><input type="text" name="eduDur[]" placeholder="09-18 – 06-22" data-track /></td>
+        <td class="input-cell"><input type="month" name="eduFrom[]" data-track /></td>
+        <td class="input-cell"><input type="month" name="eduTo[]" data-track /></td>
         <td class="input-cell"><input type="text" name="eduGrade[]" placeholder="e.g. 3.5 GPA" data-track /></td>
         <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
       `;
@@ -859,6 +1072,22 @@
       `;
       tbody.appendChild(tr);
       tr.querySelector('input').focus();
+    }
+
+    // Highlight the preparation panel when a preparation-related option is chosen
+    function handleTestNameChange(sel) {
+      const panel = document.getElementById('prepPanel');
+      const v = sel.value;
+      const isPrep = v === 'English Language Proficiency Test preparation' || v === 'Not taken yet';
+      if (isPrep) {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        panel.style.transition = 'box-shadow .3s';
+        panel.style.boxShadow = '0 0 0 3px rgba(245,158,11,.45)';
+        setTimeout(() => { panel.style.boxShadow = 'none'; }, 1600);
+        const prepSel = document.querySelector('[name="prepTest"]');
+        if (prepSel && !prepSel.value) prepSel.focus();
+      }
+      updateProgress();
     }
 
     function toggleVisaHistory(show) {
@@ -948,8 +1177,17 @@
       return d;
     }
 
+    const FORM_VERSION = '2';
+
     function loadDraft() {
       try {
+        // Discard drafts saved with an older form structure
+        if (localStorage.getItem('edroll_form_version') !== FORM_VERSION) {
+          ['edroll_draft_data','edroll_draft_edu','edroll_draft_exp','edroll_draft_sponsor','edroll_draft_visa','edroll_draft_time']
+            .forEach(k => localStorage.removeItem(k));
+          localStorage.setItem('edroll_form_version', FORM_VERSION);
+          return;
+        }
         const data = JSON.parse(localStorage.getItem('edroll_draft_data') || 'null');
         if (!data) return;
 
