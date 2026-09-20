@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Assessment Form | Edroll Education</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+
+    :root {
+      --brand-navy: #1a365d;
+      --brand-teal: #0d9488;
+      --brand-gold: #d4a017;
+      --row-alt: #f0f7ff;
+      --border: #94a3b8;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(135deg, #e8f0fe 0%, #f0fdf4 50%, #fef9c3 100%);
+      min-height: 100vh;
+    }
+
+    .form-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      letter-spacing: 0.04em;
+    }
+
+    .logo-mark {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, #0d9488 0%, #1a365d 100%);
+      border-radius: 10px 10px 10px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 22px;
+      box-shadow: 0 4px 14px rgba(13, 148, 136, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-mark::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 18px;
+      height: 18px;
+      background: #d4a017;
+      border-radius: 18px 0 0 0;
+    }
+
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--brand-navy);
+      text-transform: none;
+      letter-spacing: 0.01em;
+      margin-bottom: 0.35rem;
+      padding-left: 2px;
+    }
+
+    .form-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .form-table th,
+    .form-table td {
+      border: 1.5px solid var(--border);
+      padding: 0;
+      vertical-align: middle;
+    }
+
+    .form-table th {
+      background: linear-gradient(180deg, #1e3a5f 0%, #1a365d 100%);
+      color: white;
+      font-weight: 600;
+      font-size: 0.72rem;
+      padding: 8px 10px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .label-cell {
+      background: #e8eef6;
+      font-weight: 600;
+      color: #1e293b;
+      padding: 7px 10px;
+      white-space: nowrap;
+      width: 1%;
+      font-size: 0.78rem;
+    }
+
+    .input-cell {
+      padding: 0;
+      background: white;
+    }
+
+    .input-cell input,
+    .input-cell select,
+    .input-cell textarea {
+      width: 100%;
+      border: none;
+      outline: none;
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      font-family: inherit;
+      background: transparent;
+      color: #0f172a;
+      min-height: 36px;
+    }
+
+    .input-cell input:focus,
+    .input-cell select:focus,
+    .input-cell textarea:focus {
+      background: #fffbeb;
+      box-shadow: inset 0 0 0 2px #f59e0b;
+    }
+
+    .input-cell textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    .note-text {
+      font-size: 0.7rem;
+      color: #64748b;
+      font-style: italic;
+      margin: 4px 0 10px;
+      line-height: 1.4;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow:
+        0 4px 6px -1px rgba(0,0,0,0.07),
+        0 10px 30px -5px rgba(26, 54, 93, 0.12);
+      overflow: hidden;
+    }
+
+    .header-bar {
+      background: white;
+      border-bottom: 3px solid var(--brand-teal);
+      padding: 1.25rem 1.75rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+      color: white;
+      font-weight: 600;
+      padding: 12px 32px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(13, 148, 136, 0.45);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--brand-navy);
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 2px solid #cbd5e1;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--brand-navy);
+      background: #f8fafc;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 10px 4px;
+      font-size: 0.85rem;
+      color: #1e293b;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .checkbox-group input[type="checkbox"],
+    .checkbox-group input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--brand-teal);
+      cursor: pointer;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: #e2e8f0;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0d9488, #d4a017);
+      transition: width 0.4s ease;
+      border-radius: 2px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f766e;
+      color: white;
+      padding: 14px 22px;
+      border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      transform: translateY(120px);
+      opacity: 0;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 100;
+      font-weight: 500;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .print-only { display: none; }
+
+    @media print {
+      body { background: white; }
+      .no-print { display: none !important; }
+      .print-only { display: block; }
+      .card { box-shadow: none; border: 1px solid #ccc; }
+      .input-cell input, .input-cell select, .input-cell textarea {
+        border-bottom: 1px dotted #999;
+      }
+    }
+
+    .add-row-btn {
+      font-size: 0.72rem;
+      color: var(--brand-teal);
+      background: #f0fdfa;
+      border: 1px dashed #99f6e4;
+      padding: 4px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+
+    .add-row-btn:hover {
+      background: #ccfbf1;
+      border-color: #0d9488;
+    }
+
+    .remove-row-btn {
+      color: #ef4444;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 4px 8px;
+      opacity: 0.6;
+    }
+
+    .remove-row-btn:hover { opacity: 1; }
+
+    .inline-note-field {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: #64748b;
+      font-style: italic;
+      padding: 6px 2px;
+    }
+
+    .inline-note-field input {
+      border: none;
+      border-bottom: 1.5px solid #94a3b8;
+      outline: none;
+      padding: 2px 6px;
+      font-size: 0.8rem;
+      font-style: normal;
+      color: #0f172a;
+      min-width: 180px;
+      background: transparent;
+      font-family: inherit;
+    }
+
+    .inline-note-field input:focus {
+      border-bottom-color: #f59e0b;
+      background: #fffbeb;
+    }
+
+    .section-block {
+      margin-bottom: 1.25rem;
+    }
+
+    .page-wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    @media (max-width: 640px) {
+      .header-bar { flex-direction: column; gap: 0.75rem; text-align: center; }
+      .form-title { font-size: 1.25rem !important; }
+      .label-cell { white-space: normal; min-width: 90px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <!-- Top progress -->
+    <div class="no-print mb-4">
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Form Completion</span>
+        <span id="progressText" class="text-xs font-bold text-teal-700">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <!-- Header -->
+      <div class="header-bar flex items-center justify-between flex-wrap gap-3">
+        <div class="flex items-center gap-3">
+          <div class="logo-mark">E</div>
+          <div>
+            <div class="text-xl font-bold leading-tight" style="color: #1a365d;">
+              Edroll <span style="color: #0d9488;">Education</span>
+            </div>
+            <div class="text-[10px] text-slate-400 font-medium tracking-wide uppercase">Your Path Abroad</div>
+          </div>
+        </div>
+        <h1 class="form-title text-2xl md:text-[1.7rem] font-bold text-slate-800">
+          STUDENT ASSESSMENT FORM
+        </h1>
+      </div>
+
+      <form id="assessmentForm" class="p-5 md:p-6" autocomplete="on">
+        <!-- Personal Information -->
+        <div class="section-block">
+          <div class="section-label">Personal Information</div>
+          <table class="form-table">
+            <tr>
+              <td class="label-cell">First Name</td>
+              <td class="input-cell"><input type="text" name="firstName" placeholder="Enter first name" data-track /></td>
+              <td class="label-cell">Given Name</td>
+              <td class="input-cell"><input type="text" name="givenName" placeholder="Enter given name" data-track /></td>
+            </tr>
+            <tr>
+              <td class="label-cell">Date of Birth</td>
+              <td class="input-cell"><input type="date" name="dob" data-track /></td>
+              <td class="label-cell">Marital Status</td>
+              <td class="input-cell">
+                <select name="maritalStatus" data-track>
+                  <option value="">Select...</option>
+                  <option>Single</option>
+                  <option>Married</option>
+                  <option>Divorced</option>
+                  <option>Widowed</option>
+                  <option>Separated</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td class="label-cell">Mobile Number</td>
+              <td class="input-cell"><input type="tel" name="mobile" placeholder="+1 234 567 8900" data-track /></td>
+              <td class="label-cell">Email Address</td>
+              <td class="input-cell"><input type="email" name="email" placeholder="you@example.com" data-track /></td>
+            </tr>
+            <tr>
+              <td class="label-cell">Home Address</td>
+              <td class="input-cell" colspan="3"><input type="text" name="homeAddress" placeholder="Full residential address" data-track /></td>
+            </tr>
+            <tr>
+              <td class="label-cell">Intended Course</td>
+              <td class="input-cell"><input type="text" name="intendedCourse" placeholder="e.g. MSc Computer Science" data-track /></td>
+              <td class="label-cell">Intended Country</td>
+              <td class="input-cell"><input type="text" name="intendedCountry" placeholder="e.g. United Kingdom" data-track /></td>
+            </tr>
+          </table>
+          <p class="note-text">*You will be required to provide complete statement of purpose for the course you apply for. Sample will be shared.</p>
+        </div>
+
+        <!-- Education -->
+        <div class="section-block">
+          <div class="flex items-center justify-between mb-1">
+            <div class="section-label mb-0">Education</div>
+            <button type="button" class="add-row-btn no-print" onclick="addEducationRow()">+ Add Row</button>
+          </div>
+          <table class="form-table" id="educationTable">
+            <thead>
+              <tr>
+                <th style="width:28%">Name of Qualification</th>
+                <th style="width:32%">Institute / University</th>
+                <th style="width:20%">Duration<br><span style="font-weight:400;font-size:0.65rem">MM-YY – MM-YY</span></th>
+                <th style="width:16%">% / Grade / GPA / Division</th>
+                <th class="no-print" style="width:4%"></th>
+              </tr>
+            </thead>
+            <tbody id="educationBody">
+              <tr>
+                <td class="input-cell"><input type="text" name="eduQual[]" placeholder="e.g. Bachelor of Science" data-track /></td>
+                <td class="input-cell"><input type="text" name="eduInst[]" placeholder="University name" data-track /></td>
+                <td class="input-cell"><input type="text" name="eduDur[]" placeholder="09-18 – 06-22" data-track /></td>
+                <td class="input-cell"><input type="text" name="eduGrade[]" placeholder="e.g. 3.5 GPA" data-track /></td>
+                <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+              </tr>
+              <tr>
+                <td class="input-cell"><input type="text" name="eduQual[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="eduInst[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="eduDur[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="eduGrade[]" data-track /></td>
+                <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+              </tr>
+              <tr>
+                <td class="input-cell"><input type="text" name="eduQual[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="eduInst[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="eduDur[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="eduGrade[]" data-track /></td>
+                <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+              </tr>
+              <tr>
+                <td class="input-cell"><input type="text" name="eduQual[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="eduInst[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="eduDur[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="eduGrade[]" data-track /></td>
+                <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note-text">*If there are any gaps in your academic history, please explain in detail with evidence.</p>
+          <div class="mt-1">
+            <textarea name="educationGaps" rows="2" placeholder="Explain any academic gaps here (optional)..." data-track
+              style="width:100%;border:1.5px solid #94a3b8;border-radius:6px;padding:8px 10px;font-size:0.8rem;font-family:inherit;outline:none;resize:vertical;"
+              onfocus="this.style.boxShadow='0 0 0 2px #f59e0b';this.style.borderColor='#f59e0b'"
+              onblur="this.style.boxShadow='none';this.style.borderColor='#94a3b8'"></textarea>
+          </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="section-block">
+          <div class="flex items-center justify-between mb-1">
+            <div class="section-label mb-0">Experience</div>
+            <button type="button" class="add-row-btn no-print" onclick="addExperienceRow()">+ Add Row</button>
+          </div>
+          <table class="form-table" id="experienceTable">
+            <thead>
+              <tr>
+                <th style="width:34%">Name of Organization</th>
+                <th style="width:18%">From</th>
+                <th style="width:18%">To</th>
+                <th style="width:26%">Designation</th>
+                <th class="no-print" style="width:4%"></th>
+              </tr>
+            </thead>
+            <tbody id="experienceBody">
+              <tr>
+                <td class="input-cell"><input type="text" name="expOrg[]" placeholder="Company / Organization" data-track /></td>
+                <td class="input-cell"><input type="month" name="expFrom[]" data-track /></td>
+                <td class="input-cell"><input type="month" name="expTo[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="expDesig[]" placeholder="Job title" data-track /></td>
+                <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+              </tr>
+              <tr>
+                <td class="input-cell"><input type="text" name="expOrg[]" data-track /></td>
+                <td class="input-cell"><input type="month" name="expFrom[]" data-track /></td>
+                <td class="input-cell"><input type="month" name="expTo[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="expDesig[]" data-track /></td>
+                <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+              </tr>
+              <tr>
+                <td class="input-cell"><input type="text" name="expOrg[]" data-track /></td>
+                <td class="input-cell"><input type="month" name="expFrom[]" data-track /></td>
+                <td class="input-cell"><input type="month" name="expTo[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="expDesig[]" data-track /></td>
+                <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note-text">*Must provide experience or joining letters with salary slip of current employment.</p>
+        </div>
+
+        <!-- English Language Proficiency -->
+        <div class="section-block">
+          <div class="section-label">English Language Proficiency</div>
+          <table class="form-table">
+            <thead>
+              <tr>
+                <th>Test Name</th>
+                <th>Test Date</th>
+                <th>Listening</th>
+                <th>Reading</th>
+                <th>Writing</th>
+                <th>Speaking</th>
+                <th>Overall Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="input-cell">
+                  <select name="testName" data-track>
+                    <option value="">Select test...</option>
+                    <option>IELTS Academic</option>
+                    <option>IELTS General</option>
+                    <option>TOEFL iBT</option>
+                    <option>PTE Academic</option>
+                    <option>Duolingo English Test</option>
+                    <option>Cambridge English</option>
+                    <option>Other</option>
+                  </select>
+                </td>
+                <td class="input-cell"><input type="date" name="testDate" data-track /></td>
+                <td class="input-cell"><input type="text" name="listening" placeholder="—" data-track style="text-align:center" /></td>
+                <td class="input-cell"><input type="text" name="reading" placeholder="—" data-track style="text-align:center" /></td>
+                <td class="input-cell"><input type="text" name="writing" placeholder="—" data-track style="text-align:center" /></td>
+                <td class="input-cell"><input type="text" name="speaking" placeholder="—" data-track style="text-align:center" /></td>
+                <td class="input-cell"><input type="text" name="overallScore" placeholder="—" data-track style="text-align:center;font-weight:600" /></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="inline-note-field mt-1">
+            <span>*If you are preparing for any English Test, please mention the expected date of appearing in Exam</span>
+            <input type="date" name="expectedTestDate" data-track />
+          </div>
+        </div>
+
+        <!-- Sponsor Details -->
+        <div class="section-block">
+          <div class="flex items-center justify-between mb-1">
+            <div class="section-label mb-0">Sponsor Details</div>
+            <button type="button" class="add-row-btn no-print" onclick="addSponsorRow()">+ Add Sponsor</button>
+          </div>
+          <table class="form-table" id="sponsorTable">
+            <thead>
+              <tr>
+                <th style="width:28%">Name of Sponsor</th>
+                <th style="width:22%">Relationship</th>
+                <th style="width:26%">Source of Income</th>
+                <th style="width:20%">Average Monthly Income</th>
+                <th class="no-print" style="width:4%"></th>
+              </tr>
+            </thead>
+            <tbody id="sponsorBody">
+              <tr>
+                <td class="input-cell"><input type="text" name="sponsorName[]" placeholder="Full name" data-track /></td>
+                <td class="input-cell">
+                  <select name="sponsorRel[]" data-track>
+                    <option value="">Select...</option>
+                    <option>Father</option>
+                    <option>Mother</option>
+                    <option>Spouse</option>
+                    <option>Sibling</option>
+                    <option>Guardian</option>
+                    <option>Self</option>
+                    <option>Other</option>
+                  </select>
+                </td>
+                <td class="input-cell"><input type="text" name="sponsorIncome[]" placeholder="e.g. Business, Salary" data-track /></td>
+                <td class="input-cell"><input type="text" name="sponsorMonthly[]" placeholder="e.g. $5,000" data-track /></td>
+                <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+              </tr>
+              <tr>
+                <td class="input-cell"><input type="text" name="sponsorName[]" data-track /></td>
+                <td class="input-cell">
+                  <select name="sponsorRel[]" data-track>
+                    <option value="">Select...</option>
+                    <option>Father</option>
+                    <option>Mother</option>
+                    <option>Spouse</option>
+                    <option>Sibling</option>
+                    <option>Guardian</option>
+                    <option>Self</option>
+                    <option>Other</option>
+                  </select>
+                </td>
+                <td class="input-cell"><input type="text" name="sponsorIncome[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="sponsorMonthly[]" data-track /></td>
+                <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note-text">*Sponsor must provide the evidence of annual income for admission &amp; visa processing.</p>
+        </div>
+
+        <!-- Visa Refusal -->
+        <div class="section-block">
+          <div class="flex flex-wrap items-center gap-x-4 gap-y-2 py-1">
+            <span class="text-sm font-semibold text-slate-800">Have you ever been refused any visa from any country?</span>
+            <div class="checkbox-group" style="padding:0;gap:1.25rem;">
+              <label>
+                <input type="radio" name="visaRefused" value="Yes" data-track onchange="toggleVisaHistory(true)" />
+                Yes
+              </label>
+              <label>
+                <input type="radio" name="visaRefused" value="No" data-track onchange="toggleVisaHistory(false)" />
+                No
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visa History -->
+        <div class="section-block" id="visaHistorySection">
+          <div class="flex items-center justify-between mb-1">
+            <div class="section-label mb-0">Visa History <span class="font-normal text-slate-400">(If applicable)</span></div>
+            <button type="button" class="add-row-btn no-print" onclick="addVisaRow()">+ Add Row</button>
+          </div>
+          <table class="form-table" id="visaTable">
+            <thead>
+              <tr>
+                <th style="width:26%">Country Applied to</th>
+                <th style="width:24%">Decision<br><span style="font-weight:400;font-size:0.65rem">(Approved / Refused)</span></th>
+                <th style="width:22%">Date of Decision</th>
+                <th style="width:24%">Type of Visa Application</th>
+                <th class="no-print" style="width:4%"></th>
+              </tr>
+            </thead>
+            <tbody id="visaBody">
+              <tr>
+                <td class="input-cell"><input type="text" name="visaCountry[]" placeholder="Country name" data-track /></td>
+                <td class="input-cell">
+                  <select name="visaDecision[]" data-track>
+                    <option value="">Select...</option>
+                    <option>Approved</option>
+                    <option>Refused</option>
+                  </select>
+                </td>
+                <td class="input-cell"><input type="date" name="visaDate[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="visaType[]" placeholder="e.g. Student Visa" data-track /></td>
+                <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+              </tr>
+              <tr>
+                <td class="input-cell"><input type="text" name="visaCountry[]" data-track /></td>
+                <td class="input-cell">
+                  <select name="visaDecision[]" data-track>
+                    <option value="">Select...</option>
+                    <option>Approved</option>
+                    <option>Refused</option>
+                  </select>
+                </td>
+                <td class="input-cell"><input type="date" name="visaDate[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="visaType[]" data-track /></td>
+                <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+              </tr>
+              <tr>
+                <td class="input-cell"><input type="text" name="visaCountry[]" data-track /></td>
+                <td class="input-cell">
+                  <select name="visaDecision[]" data-track>
+                    <option value="">Select...</option>
+                    <option>Approved</option>
+                    <option>Refused</option>
+                  </select>
+                </td>
+                <td class="input-cell"><input type="date" name="visaDate[]" data-track /></td>
+                <td class="input-cell"><input type="text" name="visaType[]" data-track /></td>
+                <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note-text">*You will need to provide all the visa approval and refusal letters.</p>
+        </div>
+
+        <!-- Declaration -->
+        <div class="section-block mt-6 p-4 rounded-lg" style="background:#f0fdf4;border:1.5px solid #86efac;">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" name="declaration" id="declaration" data-track
+              style="width:18px;height:18px;margin-top:2px;accent-color:#0d9488;flex-shrink:0;" />
+            <span class="text-sm text-slate-700 leading-relaxed">
+              I hereby declare that the information provided in this form is true and complete to the best of my knowledge.
+              I understand that any false or misleading information may result in the rejection of my application.
+            </span>
+          </label>
+        </div>
+
+        <!-- Actions -->
+        <div class="no-print flex flex-wrap items-center justify-between gap-3 mt-6 pt-5 border-t border-slate-200">
+          <button type="button" class="btn-secondary" onclick="clearForm()">Clear Form</button>
+          <div class="flex flex-wrap gap-3">
+            <button type="button" class="btn-secondary" onclick="window.print()">
+              <span style="display:inline-flex;align-items:center;gap:6px;">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6v-8z"/></svg>
+                Print
+              </span>
+            </button>
+            <button type="button" class="btn-secondary" onclick="saveDraft()">Save Draft</button>
+            <button type="submit" class="btn-primary">Submit Assessment</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <p class="no-print text-center text-xs text-slate-400 mt-5">
+      © Edroll Education · Student Assessment Form · Confidential
+    </p>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+    <span id="toastMsg">Saved successfully</span>
+  </div>
+
+  <script>
+    // --- Progress tracking ---
+    function updateProgress() {
+      const fields = document.querySelectorAll('[data-track]');
+      let filled = 0;
+      let total = 0;
+      fields.forEach(el => {
+        if (el.type === 'radio') {
+          if (el.name && !document.querySelector(`input[name="${el.name}"]:checked`)) {
+            // count radio groups once
+          }
+          return;
+        }
+        if (el.type === 'checkbox') {
+          total++;
+          if (el.checked) filled++;
+          return;
+        }
+        total++;
+        if (el.value && el.value.trim() !== '') filled++;
+      });
+      // radio groups
+      const radioNames = new Set();
+      document.querySelectorAll('input[type="radio"][data-track]').forEach(r => radioNames.add(r.name));
+      radioNames.forEach(name => {
+        total++;
+        if (document.querySelector(`input[name="${name}"]:checked`)) filled++;
+      });
+
+      const pct = total ? Math.round((filled / total) * 100) : 0;
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressText').textContent = pct + '%';
+    }
+
+    document.getElementById('assessmentForm').addEventListener('input', updateProgress);
+    document.getElementById('assessmentForm').addEventListener('change', updateProgress);
+
+    // --- Row helpers ---
+    function removeRow(btn) {
+      const tbody = btn.closest('tbody');
+      if (tbody.rows.length <= 1) {
+        // clear instead of remove last row
+        btn.closest('tr').querySelectorAll('input, select').forEach(el => {
+          if (el.type !== 'button') el.value = '';
+        });
+        updateProgress();
+        return;
+      }
+      btn.closest('tr').remove();
+      updateProgress();
+    }
+
+    function addEducationRow() {
+      const tbody = document.getElementById('educationBody');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="input-cell"><input type="text" name="eduQual[]" placeholder="e.g. Bachelor of Science" data-track /></td>
+        <td class="input-cell"><input type="text" name="eduInst[]" placeholder="University name" data-track /></td>
+        <td class="input-cell"><input type="text" name="eduDur[]" placeholder="09-18 – 06-22" data-track /></td>
+        <td class="input-cell"><input type="text" name="eduGrade[]" placeholder="e.g. 3.5 GPA" data-track /></td>
+        <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+      `;
+      tbody.appendChild(tr);
+      tr.querySelector('input').focus();
+    }
+
+    function addExperienceRow() {
+      const tbody = document.getElementById('experienceBody');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="input-cell"><input type="text" name="expOrg[]" placeholder="Company / Organization" data-track /></td>
+        <td class="input-cell"><input type="month" name="expFrom[]" data-track /></td>
+        <td class="input-cell"><input type="month" name="expTo[]" data-track /></td>
+        <td class="input-cell"><input type="text" name="expDesig[]" placeholder="Job title" data-track /></td>
+        <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+      `;
+      tbody.appendChild(tr);
+      tr.querySelector('input').focus();
+    }
+
+    function addSponsorRow() {
+      const tbody = document.getElementById('sponsorBody');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="input-cell"><input type="text" name="sponsorName[]" placeholder="Full name" data-track /></td>
+        <td class="input-cell">
+          <select name="sponsorRel[]" data-track>
+            <option value="">Select...</option>
+            <option>Father</option>
+            <option>Mother</option>
+            <option>Spouse</option>
+            <option>Sibling</option>
+            <option>Guardian</option>
+            <option>Self</option>
+            <option>Other</option>
+          </select>
+        </td>
+        <td class="input-cell"><input type="text" name="sponsorIncome[]" placeholder="e.g. Business, Salary" data-track /></td>
+        <td class="input-cell"><input type="text" name="sponsorMonthly[]" placeholder="e.g. $5,000" data-track /></td>
+        <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+      `;
+      tbody.appendChild(tr);
+      tr.querySelector('input').focus();
+    }
+
+    function addVisaRow() {
+      const tbody = document.getElementById('visaBody');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="input-cell"><input type="text" name="visaCountry[]" placeholder="Country name" data-track /></td>
+        <td class="input-cell">
+          <select name="visaDecision[]" data-track>
+            <option value="">Select...</option>
+            <option>Approved</option>
+            <option>Refused</option>
+          </select>
+        </td>
+        <td class="input-cell"><input type="date" name="visaDate[]" data-track /></td>
+        <td class="input-cell"><input type="text" name="visaType[]" placeholder="e.g. Student Visa" data-track /></td>
+        <td class="no-print input-cell text-center"><button type="button" class="remove-row-btn" onclick="removeRow(this)" title="Remove">✕</button></td>
+      `;
+      tbody.appendChild(tr);
+      tr.querySelector('input').focus();
+    }
+
+    function toggleVisaHistory(show) {
+      // Always keep section visible; just a visual cue
+      const section = document.getElementById('visaHistorySection');
+      if (show) {
+        section.style.opacity = '1';
+        section.style.outline = '2px solid #fbbf24';
+        section.style.outlineOffset = '4px';
+        section.style.borderRadius = '8px';
+        setTimeout(() => { section.style.outline = 'none'; }, 1500);
+      }
+      updateProgress();
+    }
+
+    // --- Toast ---
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    // --- Local storage draft ---
+    function collectFormData() {
+      const form = document.getElementById('assessmentForm');
+      const data = {};
+      const fd = new FormData(form);
+      // Handle multi-value fields
+      for (const [key, val] of fd.entries()) {
+        if (key.endsWith('[]')) {
+          if (!data[key]) data[key] = [];
+          data[key].push(val);
+        } else {
+          data[key] = val;
+        }
+      }
+      // radios already in FormData
+      data.declaration = form.declaration.checked;
+      return data;
+    }
+
+    function saveDraft() {
+      try {
+        const data = collectFormData();
+        // Also store dynamic row counts by serializing inputs more carefully
+        const allInputs = {};
+        document.querySelectorAll('#assessmentForm input, #assessmentForm select, #assessmentForm textarea').forEach((el, i) => {
+          if (el.type === 'radio') {
+            if (el.checked) allInputs[el.name] = el.value;
+          } else if (el.type === 'checkbox') {
+            allInputs[el.name + '_' + i] = el.checked;
+            allInputs[el.name] = el.checked;
+          } else {
+            const key = el.name + '___' + i;
+            allInputs[key] = { name: el.name, value: el.value, type: el.type || el.tagName };
+          }
+        });
+        // Save HTML of dynamic tables for perfect restore
+        localStorage.setItem('edroll_draft_edu', document.getElementById('educationBody').innerHTML);
+        localStorage.setItem('edroll_draft_exp', document.getElementById('experienceBody').innerHTML);
+        localStorage.setItem('edroll_draft_sponsor', document.getElementById('sponsorBody').innerHTML);
+        localStorage.setItem('edroll_draft_visa', document.getElementById('visaBody').innerHTML);
+        localStorage.setItem('edroll_draft_data', JSON.stringify(collectSimpleData()));
+        localStorage.setItem('edroll_draft_time', new Date().toISOString());
+        showToast('Draft saved locally');
+      } catch (e) {
+        showToast('Could not save draft');
+      }
+    }
+
+    function collectSimpleData() {
+      const d = {};
+      document.querySelectorAll('#assessmentForm input, #assessmentForm select, #assessmentForm textarea').forEach(el => {
+        if (!el.name) return;
+        if (el.type === 'radio') {
+          if (el.checked) d[el.name] = el.value;
+        } else if (el.type === 'checkbox') {
+          d[el.name] = el.checked;
+        } else if (el.name.endsWith('[]')) {
+          if (!d[el.name]) d[el.name] = [];
+          d[el.name].push(el.value);
+        } else {
+          d[el.name] = el.value;
+        }
+      });
+      return d;
+    }
+
+    function loadDraft() {
+      try {
+        const data = JSON.parse(localStorage.getItem('edroll_draft_data') || 'null');
+        if (!data) return;
+
+        const edu = localStorage.getItem('edroll_draft_edu');
+        const exp = localStorage.getItem('edroll_draft_exp');
+        const spo = localStorage.getItem('edroll_draft_sponsor');
+        const visa = localStorage.getItem('edroll_draft_visa');
+        if (edu) document.getElementById('educationBody').innerHTML = edu;
+        if (exp) document.getElementById('experienceBody').innerHTML = exp;
+        if (spo) document.getElementById('sponsorBody').innerHTML = spo;
+        if (visa) document.getElementById('visaBody').innerHTML = visa;
+
+        // Fill simple fields
+        Object.keys(data).forEach(name => {
+          if (name.endsWith('[]')) {
+            const els = document.querySelectorAll(`[name="${name}"]`);
+            const vals = data[name] || [];
+            els.forEach((el, i) => { if (vals[i] !== undefined) el.value = vals[i]; });
+          } else if (typeof data[name] === 'boolean') {
+            const el = document.querySelector(`[name="${name}"]`);
+            if (el && el.type === 'checkbox') el.checked = data[name];
+          } else {
+            const radios = document.querySelectorAll(`input[type="radio"][name="${name}"]`);
+            if (radios.length) {
+              radios.forEach(r => { r.checked = r.value === data[name]; });
+            } else {
+              const el = document.querySelector(`[name="${name}"]`);
+              if (el) el.value = data[name];
+            }
+          }
+        });
+        updateProgress();
+        const t = localStorage.getItem('edroll_draft_time');
+        if (t) {
+          const dt = new Date(t);
+          showToast('Draft restored · ' + dt.toLocaleString());
+        }
+      } catch (e) { /* ignore */ }
+    }
+
+    function clearForm() {
+      if (!confirm('Clear all form data? This cannot be undone.')) return;
+      document.getElementById('assessmentForm').reset();
+      localStorage.removeItem('edroll_draft_data');
+      localStorage.removeItem('edroll_draft_edu');
+      localStorage.removeItem('edroll_draft_exp');
+      localStorage.removeItem('edroll_draft_sponsor');
+      localStorage.removeItem('edroll_draft_visa');
+      localStorage.removeItem('edroll_draft_time');
+      updateProgress();
+      showToast('Form cleared');
+    }
+
+    // --- Submit ---
+    document.getElementById('assessmentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const decl = document.getElementById('declaration');
+      if (!decl.checked) {
+        decl.focus();
+        showToast('Please accept the declaration');
+        document.getElementById('toast').style.background = '#b45309';
+        setTimeout(() => { document.getElementById('toast').style.background = '#0f766e'; }, 3000);
+        return;
+      }
+      const firstName = document.querySelector('[name="firstName"]').value.trim();
+      const email = document.querySelector('[name="email"]').value.trim();
+      if (!firstName || !email) {
+        showToast('First name and email are required');
+        document.getElementById('toast').style.background = '#b45309';
+        setTimeout(() => { document.getElementById('toast').style.background = '#0f766e'; }, 3000);
+        if (!firstName) document.querySelector('[name="firstName"]').focus();
+        else document.querySelector('[name="email"]').focus();
+        return;
+      }
+      saveDraft();
+      showToast('Assessment submitted successfully!');
+      // Visual success
+      const btn = e.submitter || document.querySelector('button[type="submit"]');
+      const orig = btn.textContent;
+      btn.textContent = '✓ Submitted';
+      btn.style.background = 'linear-gradient(135deg,#059669,#047857)';
+      setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 3000);
+    });
+
+    // Auto-save every 30s
+    setInterval(() => {
+      const data = collectSimpleData();
+      const hasContent = Object.values(data).some(v => {
+        if (Array.isArray(v)) return v.some(x => x && String(x).trim());
+        if (typeof v === 'boolean') return v;
+        return v && String(v).trim();
+      });
+      if (hasContent) {
+        localStorage.setItem('edroll_draft_edu', document.getElementById('educationBody').innerHTML);
+        localStorage.setItem('edroll_draft_exp', document.getElementById('experienceBody').innerHTML);
+        localStorage.setItem('edroll_draft_sponsor', document.getElementById('sponsorBody').innerHTML);
+        localStorage.setItem('edroll_draft_visa', document.getElementById('visaBody').innerHTML);
+        localStorage.setItem('edroll_draft_data', JSON.stringify(data));
+        localStorage.setItem('edroll_draft_time', new Date().toISOString());
+      }
+    }, 30000);
+
+    // Init
+    loadDraft();
+    updateProgress();
+  </script>
+</body>
+</html>
